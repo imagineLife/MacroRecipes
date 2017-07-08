@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>ThinkRecipeFul</title>
+ 
+  <link rel="stylesheet" type="text/css" href="index.css">
+  <link rel="stylesheet" href="./float-grid.css" />
+  <link rel="stylesheet" type="text/css" href="tooltipster-master/dist/css/tooltipster.bundle.min.css" />
+</head>
+
+<body>
+  <header role="banner">
+     
+      <div class ="col-12">
+
+        <form action="#" class="jq-form">  
+          <input type="text" name="userInput" class="userInput" placeholder="Ingredient">
+          
+          <div id="sliderWrapper">
+            <label for="carbs">Carbs:</label>
+            <div id="sliderVal"></div>
+            <input id="carbs" name="carbs" type="range" min="1" max="20" />
+            <output for="carbs" onforminput="value = carbs.valueAsNumber;"></output>
+          </div>      
+          
+          <button>Search</button>
+        </form>
+
+      </div>
+
+  </header>
+
+  <main role="main">
+    <div class="jq-results"></div> 
+  <script 
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous">
+  </script>
+  <script src="index.js"></script>
+  <script type="text/javascript" src="tooltipster-master/dist/js/tooltipster.bundle.min.js"></script>
+
+</body>
+</html>

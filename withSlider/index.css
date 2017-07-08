@@ -1,0 +1,154 @@
+header {
+  background-color: rgba(255,255,255, 0.8);
+  position:fixed;
+  width:100%;
+  margin:0;
+}
+
+form{
+  position:relative;
+  padding:10px;
+  width:100%;
+}
+
+form h1{
+  display:inline-block;
+}
+
+form input{
+  height:50px;
+  width:99%;
+  font-size:18px; 
+}
+
+form input::placeholder{
+  font-size:18px;
+  margin-left:40px;
+}
+
+form label {
+    position: relative;
+    top: 16px;
+    font-size: 20px;
+}
+
+body {
+  margin:0;
+  font-family: "Roboto", sans-serif;
+  color: #252525;
+  background: url('bkgrnd.jpg') no-repeat center center fixed;
+}
+
+main {
+  padding-top:80px;
+  height:100%;
+}
+
+button{
+  height:50px;
+  width:99%;
+  font-size:18px;
+  color: #fff;
+  background-color: #9F9B98;
+  text-shadow: -1px 1px #8B8885;
+  border: none;
+  float:right;
+}
+
+button:hover {
+  background-color: #817D7B;
+  text-shadow: -1px 1px #8B8885;
+}
+
+#sliderWrapper {
+  height:50px; 
+}
+
+.box {
+  padding:5px;
+  margin-bottom: 25px;
+}
+
+img {
+  width:100%;
+  border-radius:20px;
+  max-height:190px;
+  object-fit: cover;
+}
+
+
+a {
+  color: rgb(245,222,179);
+  text-decoration: none;
+}
+
+p {
+  padding:0;
+  margin:0;
+}
+
+h3{
+  line-height:1.4;
+}
+
+input[type=range]{
+    -webkit-appearance: none;
+    background-color:transparent;
+    width: 75%;
+    float: right;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    /*width: 80%;*/
+    height: 5px;
+    background:white;
+    border: none;
+    border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background: goldenrod;
+    margin-top: -8px;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #D8A600;
+}
+
+output { 
+  position: absolute;
+  background-image: linear-gradient(#444444, #999999);
+  width: 15px; 
+  height: 15px; 
+  text-align: center; 
+  color: white; 
+  border-radius: 10px; 
+  display: inline-block; 
+  font: bold 15px/30px Georgia;
+  bottom: 175%;
+  left: 0;
+  margin-left: -10%;
+}
+
+output:after { 
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-top: 10px solid #999999;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  margin-top: -1px;
+}

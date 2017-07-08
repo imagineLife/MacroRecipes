@@ -1,0 +1,181 @@
+header {
+  background-color: rgba(255,255,255, 0.8);
+  position:fixed;
+  width:100%;
+  margin:0;
+}
+
+form{
+  padding:10px;
+}
+
+form h1{
+  display:inline-block;
+}
+
+form input{
+  height:50px;
+  width:99%;
+  font-size:18px;
+  margin-bottom:20px;
+
+}
+
+form input::placeholder{
+  font-size:18px;
+  margin-left:40px;
+}
+
+.macroLabel {
+    font-size: 20px;
+    margin-left:30px;
+}
+
+body {
+  margin:0;
+  font-family: "Roboto", sans-serif;
+  color: #252525;
+  background: url('bkgrnd.jpg') no-repeat center center fixed;
+}
+
+main {
+  padding-top:80px;
+  height:100%;
+}
+
+button{
+  height:50px;
+  width:100%;
+  font-size:18px;
+  color: #fff;
+  background-color: #9F9B98;
+  text-shadow: -1px 1px #8B8885;
+  border: none;
+  margin: 0 0 20px 0;
+  }
+
+button:hover {
+  background-color: #817D7B;
+  text-shadow: -1px 1px #8B8885;
+}
+
+#macroWrapper {
+  height:100px; 
+  padding:10px;
+}
+
+#macroWrapper input {
+  width:30%;
+  float: right;
+}
+
+.box {
+  padding:5px;
+  margin-bottom: 25px;
+}
+
+img {
+  width:100%;
+  border-radius:20px;
+  max-height:190px;
+  object-fit: cover;
+}
+
+
+a {
+  color: rgb(245,222,179);
+  text-decoration: none;
+}
+
+p {
+  padding:0;
+  margin:0;
+}
+
+h3{
+  line-height:1.4;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 90px;
+  height: 34px;
+}
+
+.switch input {
+  display:none;
+}
+
+.switch input text{
+  display: all;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 10px;
+  left: 0;
+  right: 0;
+  bottom: -10px;
+  background-color: #2ab934 ;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #ca2222;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(55px);
+  -ms-transform: translateX(55px);
+  transform: translateX(55px);
+}
+
+.on {
+  display: none;
+}
+
+.on, .off {
+  color: white;
+  position: absolute;
+  transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  font-size: 14px;
+  font-family: Verdana, sans-serif;
+}
+
+input:checked+ .slider .on {
+  display: block;
+}
+
+input:checked + .slider .off {
+  display: none;
+}
+
+/*--------- END --------*/
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;}
