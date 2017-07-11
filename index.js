@@ -1,9 +1,11 @@
-const API_URL = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random?limitLicense=false&number=30&tags=`
+const API_URL = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByNutrients?number=18&offset=0&random=false`
 var el, newPoint, newPlace, offset;
+let arrInputVals = [];
 
 function doEverything(){
+  
   function displayAPISearchData(data){
-      let recipesVar = data.recipes;
+      let recipesVar = data;
       let APIResults = "";
       
       for(i=0; i<recipesVar.length; i++){
@@ -27,13 +29,31 @@ function doEverything(){
             APIResults += boxItem;
           }
       }
-          $('.jq-results')
-            .html(APIResults);
-  }
+
+      $('.jq-results')
+        .html(APIResults);
+
+  };
 
   function getResFromAPI(searchVal, callback) {
+    let searchParams = '';
+
+    /*
+      -Loop through the array of objects containing search parameters
+      -build string-snippets to add to the API url
+    */
+    for (i = 0; i < searchVal.length; i++){
+      let resObj = searchVal[i];
+      let minMaxVal = resObj.minMax;
+      let itemName = Object.keys(resObj)[1];
+      let itemVal = resObj[Object.keys(resObj)[1]];
+      let searchSnippet = '&' + minMaxVal + itemName + '=' + itemVal;
+      searchParams += searchSnippet;
+    }
+
+    //Build the ajax object that requests data from the API
     const infoSettings = {
-      url: API_URL+`${searchVal}`, // The URL to the API. You can get this in the API page of the API you intend to consume   
+      url: API_URL+`${searchParams}`,   
       dataType: 'json',
       success: callback,
       error: function(err) { alert(err); },
@@ -42,85 +62,80 @@ function doEverything(){
       }
     };
     $.ajax(infoSettings);
-  }
+  };
 
-  // function getInputVals(){
-    let arrInputVals = [];
-
-    $('button')
-      .on('click', function(ev){
-        ev.preventDefault();
-
-        //loop through form inputs, check for input values
-        $(".jq-form input[type=text]").each(function() {
-
-          //if no input value, skip the input
-          if( this.value == '') {
-          }else{
-          //if input HAS value, add input value to an object
-            let objInputVal = {};
-            let inputKey = this.name;
-            let inputVal = this.value;
-            objInputVal[inputKey] = inputVal;
-            arrInputVals.push(objInputVal);
-          }
-        });
-
-        // console.log(arrInputVals);
-
-
-        // //deselct input, clear input value
-        // $(this)
-        //   .siblings('.userInput')
-        //   .trigger('blur');
-        // $(this)
-        //   .siblings('button')
-        //   .trigger('blur');
-        // $('.jq-results')
-        //   .html('');
-
-
-          // getResFromAPI(arrInputVals, displayAPISearchData);
-      });
-
-    //update the text of the switch based on the color of the switch
-    function setInnerText(prevColor, macroName){
-      if(prevColor == "rgb(42, 185, 52)"){
-        $('.jq-form')
-        .children('#macroWrapper')
-        .children('.switch')
-        .children('.slider')
-        .children('#'+macroName)
-        .html('Max');
-      }else{
-        $('.jq-form')
-        .children('#macroWrapper')
-        .children('.switch')
-        .children('.slider')
-        .children('#'+macroName)
-        .html('Min');
-      }
-    }
-
-    // get the background-color of the toggle switch
+  //update the text of the switch based on the color of the switch
+  function setInnerText(prevColor, macroName){
+    if(prevColor == "rgb(42, 185, 52)"){
       $('.jq-form')
       .children('#macroWrapper')
       .children('.switch')
-      .children('#togBtn')
-      .on( 'change', function(){
-        let theColor = $(this)
-          .siblings('.slider')
-          .css("background-color");
+      .children('.slider')
+      .children('#'+macroName)
+      .html('Max');
+    }else{
+      $('.jq-form')
+      .children('#macroWrapper')
+      .children('.switch')
+      .children('.slider')
+      .children('#'+macroName)
+      .html('Min');
+    }
+  }
 
-        //get className of the element, matching the macroLabel of the current switch
-        let curMacro = $(this)
-          .siblings('.slider')
-          .children('span')
-          .attr('id')
-        setInnerText(theColor,curMacro);
-      });
+  //When the save button is selected
+  $('button')
+  .on('click', function(ev){
+    ev.preventDefault();
 
-  // }
+    //loop through form inputs, check for input values
+    $(".jq-form input[type=text]").each(function() {
+
+      //if no input value, skip the input
+      if( this.value == '') {
+      }else{
+      //if input HAS value, add input values to an object
+        let objInputVal = {};
+        let inputKey = this.name;
+        let inputVal = this.value;
+        let minMaxVal = $(this)
+          .siblings('.switch')
+          .children('.slider')
+          .children('.off')
+          .html();
+
+        objInputVal['minMax'] = minMaxVal.toLowerCase();
+        objInputVal[inputKey] = inputVal;
+
+        //put objects in a single array
+        arrInputVals.push(objInputVal);
+      }
+    });
+
+    //hide the full search form, show the mini click-to-search form
+    $(".jq-form").hide(400);
+
+    //get the results from the API
+    getResFromAPI(arrInputVals, displayAPISearchData);
+  });
+
+  // get the background-color of the toggle switch
+  $('.jq-form')
+  .children('#macroWrapper')
+  .children('.switch')
+  .children('#togBtn')
+  .on( 'change', function(){
+    let theColor = $(this)
+      .siblings('.slider')
+      .css("background-color");
+
+    //get className of the element, matching the macroLabel of the current switch
+    let curMacro = $(this)
+      .siblings('.slider')
+      .children('span')
+      .attr('id')
+    setInnerText(theColor,curMacro);
+  });
 
 }
 $(doEverything);
