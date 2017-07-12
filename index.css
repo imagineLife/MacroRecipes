@@ -26,6 +26,10 @@ form input::placeholder{
   margin-left:40px;
 }
 
+.mini-form {
+  display:none;
+}
+
 .macroLabel {
     font-size: 20px;
     margin-left:30px;
@@ -51,7 +55,7 @@ button{
   background-color: #9F9B98;
   text-shadow: -1px 1px #8B8885;
   border: none;
-  margin: 0 0 20px 0;
+  margin: 0 0 15px 0;
   }
 
 button:hover {

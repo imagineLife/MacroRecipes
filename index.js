@@ -37,21 +37,30 @@ function doEverything(){
 
   function getResFromAPI(searchVal, callback) {
     let searchParams = '';
-
+    let searchSnippet = '';
     /*
       -Loop through the array of objects containing search parameters
       -build string-snippets to add to the API url
     */
     for (i = 0; i < searchVal.length; i++){
       let resObj = searchVal[i];
-      let minMaxVal = resObj.minMax;
-      let itemName = Object.keys(resObj)[1];
-      let itemVal = resObj[Object.keys(resObj)[1]];
-      let searchSnippet = '&' + minMaxVal + itemName + '=' + itemVal;
+      let firstItem = Object.keys(resObj)[0];
+      //if the input is not the keyword input
+      if (firstItem != 'includeIngredients'){
+        let itemName = Object.keys(resObj)[1];
+        let itemVal = resObj[Object.keys(resObj)[1]];
+        let minMaxVal = resObj.minMax;
+        searchSnippet = '&' + minMaxVal + itemName + '=' + itemVal;
+      }else{
+      //if the input is the keyword input
+        let itemName = Object.keys(resObj)[0];
+        let itemVal = resObj[Object.keys(resObj)[0]];        
+        searchSnippet = '&' + itemName + '=' + itemVal;
+      }
       searchParams += searchSnippet;
     }
 
-    //Build the ajax object that requests data from the API
+    //Build & send the ajax object that requests data from the API
     const infoSettings = {
       url: API_URL+`${searchParams}`,   
       dataType: 'json',
@@ -61,6 +70,8 @@ function doEverything(){
         xhr.setRequestHeader("X-Mashape-Authorization", "Dw5Du2x9f1mshumfYcTmv8RduW9Op1On2QIjsnwkVvyQwCuMSb");
       }
     };
+
+    // console.log(infoSettings);
     $.ajax(infoSettings);
   };
 
@@ -83,10 +94,11 @@ function doEverything(){
     }
   }
 
-  //When the save button is selected
-  $('button')
-  .on('click', function(ev){
+  //When the search button is selected
+  $('.search')
+    .on('click', function(ev){
     ev.preventDefault();
+    arrInputVals = [];
 
     //loop through form inputs, check for input values
     $(".jq-form input[type=text]").each(function() {
@@ -98,13 +110,17 @@ function doEverything(){
         let objInputVal = {};
         let inputKey = this.name;
         let inputVal = this.value;
-        let minMaxVal = $(this)
+
+        if(this.name != 'includeIngredients'){
+          let minMaxVal = $(this)
           .siblings('.switch')
           .children('.slider')
           .children('.off')
           .html();
 
-        objInputVal['minMax'] = minMaxVal.toLowerCase();
+          objInputVal['minMax'] = minMaxVal.toLowerCase();
+        }
+        
         objInputVal[inputKey] = inputVal;
 
         //put objects in a single array
@@ -113,11 +129,26 @@ function doEverything(){
     });
 
     //hide the full search form, show the mini click-to-search form
-    $(".jq-form").hide(400);
+    $(".jq-form").hide(100);
+
+    //show the header-style form
+    $('.mini-form').show('fast');
 
     //get the results from the API
     getResFromAPI(arrInputVals, displayAPISearchData);
   });
+
+  //re-open the search-form when the search button is clicked
+  $('.searchAgain')
+    .on('click', function(ev){
+      ev.preventDefault();
+      console.log('clicked!');
+      //hide the full search form, show the mini click-to-search form
+      $(".jq-form").show('fast');
+
+      //show the header-style form
+      $('.mini-form').hide(100);
+    })
 
   // get the background-color of the toggle switch
   $('.jq-form')
