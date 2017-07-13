@@ -38,7 +38,6 @@ form input::placeholder{
 body {
   margin:0;
   font-family: "Roboto", sans-serif;
-  color: #252525;
   background: url('bkgrnd.jpg') no-repeat center center fixed;
 }
 

@@ -1,22 +1,26 @@
-const API_URL = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByNutrients?number=18&offset=0&random=false`
+const getRecipesURI = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?addrecipeinformation=true&number=30&offset=0&random=false&`
+const getSingleURI = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/`;
 var el, newPoint, newPlace, offset;
 let arrInputVals = [];
 
 function doEverything(){
   
   function displayAPISearchData(data){
-      let recipesVar = data;
+      let recipesVar = data.results;
       let APIResults = "";
       
+      /*
+        Want to add this is, worked in previous iteration
+        <p>From ${recipesVar[i].sourceName}</p>
+      */
       for(i=0; i<recipesVar.length; i++){
           const rowBeginning = `<div class="row">`;
           const rowEnding = `</div>`;
           let boxItem = `<div class="box col-4">
-                  <a href="${recipesVar[i].sourceUrl}" target="_blank" class="tooltip" title="Ready in ${recipesVar[i].readyInMinutes} Minutes">
+                  <a target="_blank" class="tooltip"  id="${recipesVar[i].id}">
                     <img src="${recipesVar[i].image}" alt="${recipesVar[i].title}">  
                     <div class="boxDescription">
                       <h3>${recipesVar[i].title}</h3>
-                      <p>From ${recipesVar[i].sourceName}</p>
                     </div>
                   </a>
                 </div>`;
@@ -34,6 +38,10 @@ function doEverything(){
         .html(APIResults);
 
   };
+
+  function showSingleRecipe(data){
+    console.log(data);
+  }
 
   function getResFromAPI(searchVal, callback) {
     let searchParams = '';
@@ -62,7 +70,7 @@ function doEverything(){
 
     //Build & send the ajax object that requests data from the API
     const infoSettings = {
-      url: API_URL+`${searchParams}`,   
+      url: getRecipesURI+`${searchParams}`,   
       dataType: 'json',
       success: callback,
       error: function(err) { alert(err); },
@@ -71,10 +79,10 @@ function doEverything(){
       }
     };
 
-    // console.log(infoSettings);
     $.ajax(infoSettings);
   };
 
+  
   //update the text of the switch based on the color of the switch
   function setInnerText(prevColor, macroName){
     if(prevColor == "rgb(42, 185, 52)"){
@@ -94,11 +102,41 @@ function doEverything(){
     }
   }
 
-  //When the search button is selected
+  
+  function showRecipeView(){
+    //hide the full search form, & show the mini click-to-search form
+    $(".jq-form").hide(100);
+    $('.mini-form').show('fast');
+  }
+
+  
+  function getSingleRecipe(recID, callback){
+
+    //Hide the many-recipe-display-div
+
+    //Build & send the ajax object that requests data from the API
+    const ajaxSettings = {
+      url: getSingleURI+`${recID}/information?includenutrition=false`,   
+      dataType: 'json',
+      success: callback,
+      error: function(err) { alert(err); },
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader("X-Mashape-Authorization", "Dw5Du2x9f1mshumfYcTmv8RduW9Op1On2QIjsnwkVvyQwCuMSb");
+      }
+    };
+    // console.log(infoSettings);
+    $.ajax(ajaxSettings);
+
+    showRecipeView();
+  };
+
+
   $('.search')
     .on('click', function(ev){
     ev.preventDefault();
     arrInputVals = [];
+    $('.jq-results')
+      .html('');
 
     //loop through form inputs, check for input values
     $(".jq-form input[type=text]").each(function() {
@@ -128,14 +166,10 @@ function doEverything(){
       }
     });
 
-    //hide the full search form, show the mini click-to-search form
-    $(".jq-form").hide(100);
-
-    //show the header-style form
-    $('.mini-form').show('fast');
-
     //get the results from the API
     getResFromAPI(arrInputVals, displayAPISearchData);
+    //reset the display
+    showRecipeView();
   });
 
   //re-open the search-form when the search button is clicked
@@ -148,7 +182,15 @@ function doEverything(){
 
       //show the header-style form
       $('.mini-form').hide(100);
-    })
+    });
+
+  $('.jq-results')
+  .on('click', 'a', function(ev){
+    ev.preventDefault();   
+    let recipeID = this.id;
+
+    getSingleRecipe(recipeID, showSingleRecipe);
+  });
 
   // get the background-color of the toggle switch
   $('.jq-form')
