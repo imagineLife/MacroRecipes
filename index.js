@@ -84,8 +84,8 @@ function doEverything(){
 
     //Build & send the ajax object that requests data from the API
     const infoSettings = {
-      // url: getRecipesURI+`${searchParams}`,  
-      url: 'cp.json', 
+      url: getRecipesURI+`${searchParams}`,  
+      // url: 'cp.json', 
       dataType: 'json',
       success: callback,
       error: function(err) { alert(err); },
