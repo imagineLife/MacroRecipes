@@ -262,3 +262,7 @@ input:checked + .slider .off {
     line-height:100%;
     color:#fff;
 }
+
+.hideID{
+  display:none;
+}

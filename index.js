@@ -46,36 +46,17 @@ function doEverything(){
                               .attr('data-popup-open');
 
     //set the Macro text
-    feedback.find('.txt-center').html('Recipe Macros:');
+    feedback.find('.txt-center').html('Recipe Macronutrients:');
     feedbackUL.append(`
       <li>Fat: <span>${recipeData.fat}<span></li>
       <li>Carbohydrates: <span>${recipeData.carbohydrates}</span></li>
       <li>Calories: <span>${recipeData.calories}</span></li>
-      <li>Protein: <span>${recipeData.protien}</span></li>`
+      <li>Protein: <span>${recipeData.protien}</span></li>
+      <li class="hideID">${recipeData.id}</li>`
     );
 
     $('[data-popup="' + thisButtonPopupAttr + '"]').fadeIn(100);
   }
-
-
-  //closing the feedback-dialogue
-  $('#close-feedback-modal').on('click', function (e) {
-    //empty the text in the popup
-    $('.popup-inner')
-      .find('.txt-center')
-      .html('');
-
-    $('.popup-inner')
-      .find('ul')
-      .html('');
-
-    //close the popup
-    var targetPopupClass = $(this).attr('data-popup-close');
-    $('[data-popup="' + targetPopupClass + '"]').fadeOut(300);
-    e.preventDefault();
-
-  });
-
 
   function getResFromAPI(searchVal, callback) {
     let searchParams = '';
@@ -138,17 +119,26 @@ function doEverything(){
   }
 
   
-  function showRecipeView(){
+  function showRecipeScreenView(){
     //hide the full search form, & show the mini click-to-search form
     $(".jq-form").hide(100);
     $('.mini-form').show('fast');
   }
 
-  
+  function showSingleRecipe(APIRresults){
+    let recipeURL = APIRresults.sourceUrl;
+    // function openOnClick(rcipeURL){
+      let win = window.open(recipeURL, '_blank');
+      // win.focus();
+      win;
+    // $('#feedback-popup')
+    //   .find('button')
+    //   .attr('onClick', 'showSingleRecipe');
+    // }
+
+  }
+
   function getSingleRecipe(recID, callback){
-
-    //Hide the many-recipe-display-div
-
     //Build & send the ajax object that requests data from the API
     const ajaxSettings = {
       url: getSingleURI+`${recID}/information?includenutrition=false`,   
@@ -159,11 +149,43 @@ function doEverything(){
         xhr.setRequestHeader("X-Mashape-Authorization", "Dw5Du2x9f1mshumfYcTmv8RduW9Op1On2QIjsnwkVvyQwCuMSb");
       }
     };
-    // console.log(infoSettings);
+
     $.ajax(ajaxSettings);
 
-    showRecipeView();
+    showRecipeScreenView();
   };
+
+
+  //moving visually from popup to the selected recipe webpage
+  //on 'go to recipe' click
+  $('#feedbackPopup')
+    .on('click', 'button', function(ev){
+      //find recipeID
+      let recipeID = $(this)
+        .siblings('ul')
+        .find('.hideID')
+        .html();
+
+    getSingleRecipe(recipeID, showSingleRecipe);
+    });
+
+  //closing the feedback-dialogue
+  $('#close-feedback-modal').on('click', function (e) {
+    //empty the text in the popup
+    $('.popup-inner')
+      .find('.txt-center')
+      .html('');
+
+    $('.popup-inner')
+      .find('ul')
+      .html('');
+
+    //close the popup
+    var targetPopupClass = $(this).attr('data-popup-close');
+    $('[data-popup="' + targetPopupClass + '"]').fadeOut(300);
+    e.preventDefault();
+
+  });
 
 
   $('.search')
@@ -204,7 +226,7 @@ function doEverything(){
     //get the results from the API
     getResFromAPI(arrInputVals, displayAPISearchData);
     //reset the display
-    showRecipeView();
+    showRecipeScreenView();
   });
 
   //re-open the search-form when the search button is clicked
@@ -222,7 +244,6 @@ function doEverything(){
   $('.jq-results')
   .on('click', 'a', function(ev){
     ev.preventDefault();   
-    // let recipeID = this.id;
 
     fat = $(this).data('fat');
     cals = $(this).data('calories');
@@ -239,10 +260,6 @@ function doEverything(){
     theseMacros['id'] = recipeID;
 
     showMacroPopup(theseMacros);
-
-
-    //moving this
-    // getSingleRecipe(recipeID, showSingleRecipe);
   });
 
 
