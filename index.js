@@ -1,6 +1,5 @@
 const getRecipesURI = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?addrecipeinformation=true&number=30&offset=0&random=false&`
 const getSingleURI = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/`;
-var el, newPoint, newPlace, offset;
 let arrInputVals = [];
 
 function doEverything(){
@@ -8,19 +7,18 @@ function doEverything(){
   function displayAPISearchData(data){
       let recipesVar = data.results;
       let APIResults = "";
-      
-      /*
-        Want to add this is, worked in previous iteration
-        <p>From ${recipesVar[i].sourceName}</p>
-      */
+
       for(i=0; i<recipesVar.length; i++){
+          let curRecipe = recipesVar[i];
+          let strRecipe = JSON.stringify(curRecipe);
+
           const rowBeginning = `<div class="row">`;
           const rowEnding = `</div>`;
           let boxItem = `<div class="box col-4">
-                  <a target="_blank" class="tooltip"  id="${recipesVar[i].id}">
-                    <img src="${recipesVar[i].image}" alt="${recipesVar[i].title}">  
+                  <a href="" class="testPop" data-popup-open='popup-feedback' data-fat="${curRecipe.fat}" data-carbs="${curRecipe.carbs}" data-protein="${curRecipe.protein}" data-calories="${curRecipe.calories}" id="${curRecipe.id}">
+                    <img src="${curRecipe.image}" alt="${curRecipe.title}">  
                     <div class="boxDescription">
-                      <h3>${recipesVar[i].title}</h3>
+                      <h3>${curRecipe.title}</h3>
                     </div>
                   </a>
                 </div>`;
@@ -39,9 +37,45 @@ function doEverything(){
 
   };
 
-  function showSingleRecipe(data){
-    console.log(data);
+  //opening the macro-popup
+  function showMacroPopup(recipeData) {
+    const feedback = $('.popup-inner');
+    const  feedbackUL = feedback.find('ul');
+    const feedbackButon = feedback.find('button');
+    var thisButtonPopupAttr = $('.testPop')
+                              .attr('data-popup-open');
+
+    //set the Macro text
+    feedback.find('.txt-center').html('Recipe Macros:');
+    feedbackUL.append(`
+      <li>Fat: <span>${recipeData.fat}<span></li>
+      <li>Carbohydrates: <span>${recipeData.carbohydrates}</span></li>
+      <li>Calories: <span>${recipeData.calories}</span></li>
+      <li>Protein: <span>${recipeData.protien}</span></li>`
+    );
+
+    $('[data-popup="' + thisButtonPopupAttr + '"]').fadeIn(100);
   }
+
+
+  //closing the feedback-dialogue
+  $('#close-feedback-modal').on('click', function (e) {
+    //empty the text in the popup
+    $('.popup-inner')
+      .find('.txt-center')
+      .html('');
+
+    $('.popup-inner')
+      .find('ul')
+      .html('');
+
+    //close the popup
+    var targetPopupClass = $(this).attr('data-popup-close');
+    $('[data-popup="' + targetPopupClass + '"]').fadeOut(300);
+    e.preventDefault();
+
+  });
+
 
   function getResFromAPI(searchVal, callback) {
     let searchParams = '';
@@ -70,7 +104,8 @@ function doEverything(){
 
     //Build & send the ajax object that requests data from the API
     const infoSettings = {
-      url: getRecipesURI+`${searchParams}`,   
+      // url: getRecipesURI+`${searchParams}`,  
+      url: 'cp.json', 
       dataType: 'json',
       success: callback,
       error: function(err) { alert(err); },
@@ -176,7 +211,6 @@ function doEverything(){
   $('.searchAgain')
     .on('click', function(ev){
       ev.preventDefault();
-      console.log('clicked!');
       //hide the full search form, show the mini click-to-search form
       $(".jq-form").show('fast');
 
@@ -184,13 +218,33 @@ function doEverything(){
       $('.mini-form').hide(100);
     });
 
+
   $('.jq-results')
   .on('click', 'a', function(ev){
     ev.preventDefault();   
-    let recipeID = this.id;
+    // let recipeID = this.id;
 
-    getSingleRecipe(recipeID, showSingleRecipe);
+    fat = $(this).data('fat');
+    cals = $(this).data('calories');
+    carbs = $(this).data('carbs');
+    pros = $(this).data('protein');
+    recipeID = this.id;
+
+    var theseMacros = {};
+
+    theseMacros['fat'] = fat;
+    theseMacros['calories'] = cals;
+    theseMacros['carbohydrates'] = carbs;
+    theseMacros['protien'] = pros;
+    theseMacros['id'] = recipeID;
+
+    showMacroPopup(theseMacros);
+
+
+    //moving this
+    // getSingleRecipe(recipeID, showSingleRecipe);
   });
+
 
   // get the background-color of the toggle switch
   $('.jq-form')
