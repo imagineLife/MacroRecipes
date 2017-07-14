@@ -37,7 +37,7 @@ function doEverything(){
 
   //opening the macro-popup
   function showMacroPopup(recipeData) {
-    console.log(recipeData);
+    // console.log(recipeData);
     const feedback = $('.popup-inner');
     const  feedbackUL = feedback.find('ul');
     const feedbackButon = feedback.find('button');
@@ -215,6 +215,8 @@ function doEverything(){
       }
     });
 
+    console.log(arrInputVals);
+
     //get the results from the API
     getResFromAPI(arrInputVals, displayAPISearchData);
     //reset the display
@@ -237,7 +239,7 @@ function doEverything(){
   .on('click', 'a', function(ev){
     ev.preventDefault();   
 
-    console.log(this);
+    // console.log(this);
     fat = $(this).data('fat');
     cals = $(this).data('calories');
     carbs = $(this).data('carbs');
