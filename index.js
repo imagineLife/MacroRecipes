@@ -10,12 +10,10 @@ function doEverything(){
 
       for(i=0; i<recipesVar.length; i++){
           let curRecipe = recipesVar[i];
-          let strRecipe = JSON.stringify(curRecipe);
-
           const rowBeginning = `<div class="row">`;
           const rowEnding = `</div>`;
           let boxItem = `<div class="box col-4">
-                  <a href="" class="testPop" data-popup-open='popup-feedback' data-fat="${curRecipe.fat}" data-carbs="${curRecipe.carbs}" data-protein="${curRecipe.protein}" data-calories="${curRecipe.calories}" id="${curRecipe.id}">
+                  <a href="" class="testPop" data-popup-open='popup-feedback' data-title="${curRecipe.title}"data-fat="${curRecipe.fat}"  data-carbs="${curRecipe.carbs}" data-protein="${curRecipe.protein}" data-calories="${curRecipe.calories}" id="${curRecipe.id}">
                     <img src="${curRecipe.image}" alt="${curRecipe.title}">  
                     <div class="boxDescription">
                       <h3>${curRecipe.title}</h3>
@@ -39,6 +37,7 @@ function doEverything(){
 
   //opening the macro-popup
   function showMacroPopup(recipeData) {
+    console.log(recipeData);
     const feedback = $('.popup-inner');
     const  feedbackUL = feedback.find('ul');
     const feedbackButon = feedback.find('button');
@@ -46,7 +45,7 @@ function doEverything(){
                               .attr('data-popup-open');
 
     //set the Macro text
-    feedback.find('.txt-center').html('Recipe Macronutrients:');
+    feedback.find('.txt-center').html(`${recipeData.title} <span>Macronutrients:</span>`);
     feedbackUL.append(`
       <li>Fat: <span>${recipeData.fat}<span></li>
       <li>Carbohydrates: <span>${recipeData.carbohydrates}</span></li>
@@ -127,21 +126,14 @@ function doEverything(){
 
   function showSingleRecipe(APIRresults){
     let recipeURL = APIRresults.sourceUrl;
-    // function openOnClick(rcipeURL){
-      let win = window.open(recipeURL, '_blank');
-      // win.focus();
-      win;
-    // $('#feedback-popup')
-    //   .find('button')
-    //   .attr('onClick', 'showSingleRecipe');
-    // }
-
-  }
+      window.open(recipeURL);
+  };
 
   function getSingleRecipe(recID, callback){
     //Build & send the ajax object that requests data from the API
     const ajaxSettings = {
-      url: getSingleURI+`${recID}/information?includenutrition=false`,   
+      url: getSingleURI+`${recID}/information?includenutrition=false`,
+      async:    false,
       dataType: 'json',
       success: callback,
       error: function(err) { alert(err); },
@@ -245,11 +237,13 @@ function doEverything(){
   .on('click', 'a', function(ev){
     ev.preventDefault();   
 
+    console.log(this);
     fat = $(this).data('fat');
     cals = $(this).data('calories');
     carbs = $(this).data('carbs');
     pros = $(this).data('protein');
     recipeID = this.id;
+    title = $(this).data('title');
 
     var theseMacros = {};
 
@@ -258,6 +252,7 @@ function doEverything(){
     theseMacros['carbohydrates'] = carbs;
     theseMacros['protien'] = pros;
     theseMacros['id'] = recipeID;
+    theseMacros['title'] = title;
 
     showMacroPopup(theseMacros);
   });
