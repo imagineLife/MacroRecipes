@@ -38,11 +38,12 @@ form input::placeholder{
 body {
   margin:0;
   font-family: "Roboto", sans-serif;
-  background: url('bkgrnd.jpg') no-repeat center center fixed;
+  /*background: url('bkgrnd.jpg') no-repeat center center fixed;*/
+  background: url('bkgrnd.jpg') center center fixed;
 }
 
 main {
-  padding-top:80px;
+  padding-top:90px;
   height:100%;
 }
 
@@ -189,6 +190,19 @@ input:checked + .slider .off {
 
 /* Inner */
 .popup-inner {
+    max-width:700px;
+    width:90%;
+    padding:30px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    -webkit-transform:translate(-50%, -50%);
+    transform:translate(-50%, -50%);
+    border-radius:50px;
+    background:#fff;
+}
+
+.forcePop-inner {
     max-width:700px;
     width:90%;
     padding:30px;

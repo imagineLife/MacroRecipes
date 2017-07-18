@@ -36,12 +36,20 @@ function doEverything(){
   };
 
   //opening the macro-popup
+  function showForceEntryPopup() {
+    const feedback = $('#forceEntryPopup').find('.forcePop-inner');
+    // const feedbackButon = feedback.find('button');
+    var thisButtonPopupAttr = $('.forcePop')
+                              .attr('data-popup');
+    $('[data-popup="' + thisButtonPopupAttr + '"]').fadeIn(200);
+  }
+
+  //opening the macro-popup
   function showMacroPopup(recipeData) {
-    // console.log(recipeData);
     const feedback = $('.popup-inner');
     const  feedbackUL = feedback.find('ul');
     const feedbackButon = feedback.find('button');
-    var thisButtonPopupAttr = $('.testPop')
+    var thisPopOpenAttr = $('.testPop')
                               .attr('data-popup-open');
 
     //set the Macro text
@@ -54,7 +62,7 @@ function doEverything(){
       <li class="hideID">${recipeData.id}</li>`
     );
 
-    $('[data-popup="' + thisButtonPopupAttr + '"]').fadeIn(100);
+    $('[data-popup="' + thisPopOpenAttr + '"]').fadeIn(100);
   }
 
   function getResFromAPI(searchVal, callback) {
@@ -147,42 +155,22 @@ function doEverything(){
     showRecipeScreenView();
   };
 
+  function moveOnOrNo(obj) {
+    var sum = 0;
+    for( var el in obj ) {
+      if( obj.hasOwnProperty( el ) ) {
+        sum += ( obj[el] );
+      }
+    }
+    if(sum > 0){
+      processForm();
+      return sum;
+    }else{
+      showForceEntryPopup();
+    }
+  };
 
-  //moving visually from popup to the selected recipe webpage
-  //on 'go to recipe' click
-  $('#feedbackPopup')
-    .on('click', 'button', function(ev){
-      //find recipeID
-      let recipeID = $(this)
-        .siblings('ul')
-        .find('.hideID')
-        .html();
-
-    getSingleRecipe(recipeID, showSingleRecipe);
-    });
-
-  //closing the feedback-dialogue
-  $('#close-feedback-modal').on('click', function (e) {
-    //empty the text in the popup
-    $('.popup-inner')
-      .find('.txt-center')
-      .html('');
-
-    $('.popup-inner')
-      .find('ul')
-      .html('');
-
-    //close the popup
-    var targetPopupClass = $(this).attr('data-popup-close');
-    $('[data-popup="' + targetPopupClass + '"]').fadeOut(300);
-    e.preventDefault();
-
-  });
-
-
-  $('.search')
-    .on('click', function(ev){
-    ev.preventDefault();
+  function processForm(){
     arrInputVals = [];
     $('.jq-results')
       .html('');
@@ -199,6 +187,7 @@ function doEverything(){
         let inputVal = this.value;
 
         if(this.name != 'includeIngredients'){
+          //use associated min/max keyword
           let minMaxVal = $(this)
           .siblings('.switch')
           .children('.slider')
@@ -215,12 +204,62 @@ function doEverything(){
       }
     });
 
-    console.log(arrInputVals);
+  //get the results from the API
+   getResFromAPI(arrInputVals, displayAPISearchData);
+  //reset the display
+  showRecipeScreenView();
 
-    //get the results from the API
-    getResFromAPI(arrInputVals, displayAPISearchData);
-    //reset the display
-    showRecipeScreenView();
+  };
+
+  //moving visually from popup to the selected recipe webpage
+  //on 'go to recipe' click
+  $('#feedbackPopup')
+    .on('click', 'button', function(ev){
+      //find recipeID
+      let recipeID = $(this)
+        .siblings('ul')
+        .find('.hideID')
+        .html();
+
+      getSingleRecipe(recipeID, showSingleRecipe);
+    });
+
+  //closing the forceEntry-dialogue
+  $('#forceEntryPopup').on('click', '#close-feedback-modal', function (e) {
+    e.preventDefault();
+    //close the popup
+    var targetPopupClass = $(this).attr('data-popup-close');
+    $('[data-popup="' + targetPopupClass + '"]').fadeOut(300);
+  });
+
+  //closing the feedback-dialogue
+  $('#feedbackPopup').on('click', '#close-feedback-modal', function (e) {
+    e.preventDefault();
+    //empty the text in the popup
+    $('.popup-inner')
+      .find('.txt-center')
+      .html('');
+
+    $('.popup-inner')
+      .find('ul')
+      .html('');
+
+    //close the popup
+    var targetPopupClass = $(this).attr('data-popup-close');
+    $('[data-popup="' + targetPopupClass + '"]').fadeOut(300);
+  });
+
+
+  $('.search').on('click', function(ev){
+    ev.preventDefault();
+
+    let inputList = $(".jq-form input[type=text]");
+    let inputVals = {};
+    for (i = 1; i < inputList.length; i++){
+      inputVals[i] = inputList[i].value;
+    };
+
+    moveOnOrNo(inputVals);
   });
 
   //re-open the search-form when the search button is clicked
@@ -239,7 +278,6 @@ function doEverything(){
   .on('click', 'a', function(ev){
     ev.preventDefault();   
 
-    // console.log(this);
     fat = $(this).data('fat');
     cals = $(this).data('calories');
     carbs = $(this).data('carbs');
