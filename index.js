@@ -3,7 +3,9 @@ const getSingleURI = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com
 let arrInputVals = [];
 
 function doEverything(){
-  
+  //removes gray outline on touch??
+  document.addEventListener("touchstart", function(){}, true);  
+
   function displayAPISearchData(data){
       let recipesVar = data.results;
       let APIResults = "";
