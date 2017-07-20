@@ -1,10 +1,14 @@
 const getRecipesURI = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?addrecipeinformation=true&number=30&offset=0&random=false&`
 const getSingleURI = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/`;
 let arrInputVals = [];
-
+let arrIngredients = ['chicken', 'onions', 'asparagus', 'potatoes', 'carrots', 'beef', 'tomatoes', 'apples', 'salmon'];
 function doEverything(){
-  //removes gray outline on touch??
-  document.addEventListener("touchstart", function(){}, true);  
+  //removes gray outline on touch devices
+  document.addEventListener("touchstart", function(){}, true);
+
+  let randomIngredient = arrIngredients[Math.floor(Math.random()*arrIngredients.length)];
+  console.log(randomIngredient);
+  $('#includeIngredients').attr("placeholder", randomIngredient);
 
   function displayAPISearchData(data){
       let recipesVar = data.results;
@@ -71,8 +75,8 @@ function doEverything(){
     let searchParams = '';
     let searchSnippet = '';
     /*
-      -Loop through the array of objects containing search parameters
-      -build string-snippets to add to the API url
+      1.Loop through the array of objects containing search parameters
+      2.Build string-snippets to add to the API url
     */
     for (i = 0; i < searchVal.length; i++){
       let resObj = searchVal[i];
@@ -178,12 +182,12 @@ function doEverything(){
       .html('');
 
     //loop through form inputs, check for input values
-    $(".jq-form input[type=text]").each(function() {
+    $(".jq-form input[type=number]").each(function() {
 
-      //if no input value, skip the input
+      //if no macro value, skip the macro
       if( this.value == '') {
       }else{
-      //if input HAS value, add input values to an object
+      //if macro HAS value, add macro value(s) to an object
         let objInputVal = {};
         let inputKey = this.name;
         let inputVal = this.value;
@@ -205,6 +209,8 @@ function doEverything(){
         arrInputVals.push(objInputVal);
       }
     });
+
+  console.log(arrInputVals);
 
   //get the results from the API
    getResFromAPI(arrInputVals, displayAPISearchData);
@@ -252,6 +258,15 @@ function doEverything(){
   });
 
 
+  /*
+    change to  listen-to-submit event on FORM
+    prevent default as well
+
+    THIS NOTICES THE 'required' & validations!!
+      NICE :)
+  
+  */
+  
   $('.search').on('click', function(ev){
     ev.preventDefault();
 

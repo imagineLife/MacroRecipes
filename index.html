@@ -19,53 +19,58 @@
           <button class="searchAgain">Search</button>
         </form>
 
-        <form action="#" class="jq-form">  
-          <button class="search">Search</button>
-          <input type="text" name="includeIngredients" class="userInput" placeholder="Ingredient">
-        
+        <form action="#" class="jq-form">
+          <label for="includeIngredients" class="ingredientLabel">Ingredients
+            <input type="text" name="includeIngredients" class="userInput" id="includeIngredients" required>
+          </label>
           <div id="macroWrapper">
-            <label class="switch">
-              <input type="checkbox" id="togBtn">
+            <label class="switch" for="togBtnCals">
+              <input type="checkbox" id="togBtnCals" name="togBtnCals">
               <div class="slider round">
                   <span id="calSpan" class="off">Min</span>
               </div>
             </label>
-            <label class="macroLabel">Calories</label>
-            <input type="text" name="Calories" placeholder="grams">
+            <label class="macroLabel" for="Calories">Calories <small aria-label="grams">(g)</small>
+              <input type="number" step="1" min="0" max="500" name="Calories" placeholder="140" id="Calories">
+            </label>
           </div>
 
           <div id="macroWrapper">
-            <label class="switch">
-              <input type="checkbox" id="togBtn">
+            <label class="switch" for="togBtnFats">
+              <input type="checkbox" id="togBtnFats" name="togBtnFats">
               <div class="slider round">
                   <span id="fatSpan" class="off">Min</span>
               </div>            
             </label>
-            <label class="macroLabel">Fat</label>
-            <input type="text" name="Fat" placeholder="grams">
+            <label class="macroLabel" for="Fat">Fat <small aria-label="grams">(g)</small>
+              <input type="number" step="1" min="0" max="500" name="Fat" placeholder="5" id="Fat">
+            </label>
           </div> 
 
           <div id="macroWrapper">
-            <label class="switch">              
-              <input type="checkbox" id="togBtn">
+            <label class="switch" for="togtBtnCarbs">              
+              <input type="checkbox" id="togBtn" name="togtBtnCarbs">
               <div class="slider round">
                   <span id="carbSpan" class="off">Min</span>
               </div>
             </label>
-            <label class="macroLabel">Carbs</label>
-            <input type="text" name="Carbs" placeholder="grams">
+            <label class="macroLabel" for="Carbs">Carbs <small aria-label="grams">(g)</small>
+              <input type="number" step="1" min="0" max="500" name="Carbs" placeholder="210" id="Carbs">
+            </label>
           </div>
 
           <div id="macroWrapper">
-            <label class="switch">
-              <input type="checkbox" id="togBtn">
+            <label class="switch" for="togtBtnProtein">
+              <input type="checkbox" id="togBtn" for="togtBtnProtein">
               <div class="slider round">
-                  <span id="proSpan" class="off">Min</span>
+                  <span id="proSpan" class="off">Min  </span>
               </div>
             </label>
-            <label class="macroLabel">Protein</label>
-            <input type="text" name="Protein" placeholder="grams">
-          </div>              
+            <label class="macroLabel" for="Protein">Protein <small aria-label="grams">(g)</small>
+              <input type="number" step="1" min="0" max="500" name="Protein" placeholder="15" id="Protein">
+            </label>
+          </div>
+          <button class="search">Search</button>
         </form>
         
       </div>

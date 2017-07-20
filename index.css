@@ -16,24 +16,29 @@ form h1{
 form input{
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   height:50px;
-  width:99%;
+  width:70%;
   font-size:18px;
   margin-bottom:20px;
-
 }
 
 form input::placeholder{
   font-size:18px;
   margin-left:40px;
+  display:inline-block;
 }
 
 .mini-form {
   display:none;
 }
 
+.ingredientLabel{
+  font-size: 15px;
+  display:block;
+}
+
 .macroLabel {
     font-size: 20px;
-    margin-left:30px;
+    margin-left:25px;
 }
 
 body {
@@ -111,7 +116,6 @@ h3{
 
 .switch input {
   display:none;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 .switch input text{
@@ -143,11 +147,9 @@ h3{
 
 input:checked + .slider {
   background-color: #ca2222;
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 input:focus + .slider {
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
   box-shadow: 0 0 1px #2196F3;
 }
 
@@ -277,4 +279,22 @@ input:checked + .slider .off {
 
 .hideID{
   display:none;
+}
+
+::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color:    #A2A2A2;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #A2A2A2;
+   opacity:  1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #A2A2A2;
+   opacity:  1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #A2A2A2;
+}
+::-ms-input-placeholder { /* Microsoft Edge */
+   color:    #A2A2A2;
 }
