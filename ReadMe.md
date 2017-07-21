@@ -1,13 +1,14 @@
 ## MacroFinder
-
-How it Looks
 ![Alt text](startingOut.jpg?raw=true "Starting Out")
 ![Alt text](uiInProcess.jpg?raw=true "Searching")
 ![Alt text](searchResults.jpg?raw=true "Search Results")
 ![Alt text](previewingMacros.jpg?raw=true "Previewing Macros")
 
-## Synopsis
-
+## Summary
+This is for finding recipes based on macronutrient values (i.e protein, fat, and carbohydrates) and ingredients.
+This answers questions like :
+*'How can I get 20 grams of protein with some chicken and tomatoes?'*
+*'What can I make with cumin, beef, and onions that is no more than 300 calories?'*
 
 ## Code Example
 
@@ -15,11 +16,14 @@ Show what the library does as concisely as possible, developers should be able t
 
 ## Motivation
 
-This is for finding recipes based on macronutrient values (i.e protein, fat, and carbohydrates) and ingredients.
-'How can I get 20 grams of protein with some chicken and tomatoes?'
-'What can I make with cumin, beef, and onions that is no more than 300 calories?'
-
 
 ## API Reference
+This was build using [Spoonacular's API](https://market.mashape.com/spoonacular/recipe-food-nutrition).
+Spoonacular has a robust food API, including recipe searching and nutrient searching, and much more.
 
-https://market.mashape.com/spoonacular/recipe-food-nutrition
+## Technology Used
+**HTML**
+**CSS**
+**JavaScript**
+**jQuery**
+**Spoonacular API**
