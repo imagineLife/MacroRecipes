@@ -43,7 +43,6 @@ function doEverything(){
   //opening the macro-popup
   function showForceEntryPopup() {
     const feedback = $('#forceEntryPopup').find('.forcePop-inner');
-    // const feedbackButon = feedback.find('button');
     var thisButtonPopupAttr = $('.forcePop')
                               .attr('data-popup');
     $('[data-popup="' + thisButtonPopupAttr + '"]').fadeIn(200);
@@ -57,7 +56,7 @@ function doEverything(){
     var thisPopOpenAttr = $('.testPop')
                               .attr('data-popup-open');
 
-    //set the Macro text
+    //set the Macro text based on API results
     feedback.find('.txt-center').html(`${recipeData.title} <span>Macronutrients:</span>`);
     feedbackUL.append(`
       <li>Fat: <span>${recipeData.fat}<span></li>
@@ -70,24 +69,20 @@ function doEverything(){
     $('[data-popup="' + thisPopOpenAttr + '"]').fadeIn(100);
   }
 
+  //send for and return the API serach results
   function getResFromAPI(searchVal, callback) {
     let searchParams = '';
     let searchSnippet = '';
-    /*
-      1.Loop through the array of objects containing search parameters
-      2.Build string-snippets to add to the API url
-    */
+
     for (i = 0; i < searchVal.length; i++){
       let resObj = searchVal[i];
       let firstItem = Object.keys(resObj)[0];
-      //if the input is not the keyword input
       if (firstItem != 'includeIngredients'){
         let itemName = Object.keys(resObj)[1];
         let itemVal = resObj[Object.keys(resObj)[1]];
         let minMaxVal = resObj.minMax;
         searchSnippet = '&' + minMaxVal + itemName + '=' + itemVal;
       }else{
-      //if the input is the keyword input
         let itemName = Object.keys(resObj)[0];
         let itemVal = resObj[Object.keys(resObj)[0]];        
         searchSnippet = '&' + itemName + '=' + itemVal;
@@ -95,10 +90,8 @@ function doEverything(){
       searchParams += searchSnippet;
     }
 
-    //Build & send the ajax object that requests data from the API
     const infoSettings = {
       url: getRecipesURI+`${searchParams}`,  
-      // url: 'cp.json', 
       dataType: 'json',
       success: callback,
       error: function(err) { alert(err); },
@@ -107,7 +100,6 @@ function doEverything(){
       }
     };
 
-    // console.log(infoSettings);
     $.ajax(infoSettings);
   };
 
@@ -133,7 +125,6 @@ function doEverything(){
 
   
   function showRecipeScreenView(){
-    //hide the full search form, & show the mini click-to-search form
     $(".jq-form").hide(100);
     $('.mini-form').show('fast');
   }
@@ -144,7 +135,6 @@ function doEverything(){
   };
 
   function getSingleRecipe(recID, callback){
-    //Build & send the ajax object that requests data from the API
     const ajaxSettings = {
       url: getSingleURI+`${recID}/information?includenutrition=false`,
       async:    false,
@@ -172,30 +162,26 @@ function doEverything(){
       processForm();
       return sum;
     }else{
-      // showForceEntryPopup();
+      showForceEntryPopup();
     }
   };
 
   function processForm(){
-    arrInputVals = [];
+    let arrInputVals = [];
+    let ingredientValue = $('.userInput').val();
+
     $('.jq-results')
       .html('');
 
-    let ingredientValue = $('.userInput').val();
-
-    //loop through form inputs, check for input values
     $(".jq-form input[type=number], .jq-form .userInput").each(function() {
 
-      //if no macro value, skip the macro
       if( this.value == '') {
       }else{
-      //if macro HAS value, add macro value(s) to an object
         let objInputVal = {};
         let inputKey = this.name;
         let inputVal = this.value;
 
         if(this.name != 'includeIngredients'){
-          //use associated min/max keyword
           let minMaxVal = $(this)
           .parent()
           .prev()
@@ -207,16 +193,14 @@ function doEverything(){
         
         objInputVal[inputKey] = inputVal;
 
-        //put objects in a single array
         arrInputVals.push(objInputVal);
       }
     });
 
 
-  //get the results from the API
-   getResFromAPI(arrInputVals, displayAPISearchData);
-  //reset the display
-  showRecipeScreenView();
+    getResFromAPI(arrInputVals, displayAPISearchData);
+
+    showRecipeScreenView();
 
   };
 
@@ -224,7 +208,6 @@ function doEverything(){
   //on 'go to recipe' click
   $('#feedbackPopup')
     .on('click', 'button', function(ev){
-      //find recipeID
       let recipeID = $(this)
         .siblings('ul')
         .find('.hideID')
@@ -244,7 +227,7 @@ function doEverything(){
   //closing the feedback-dialogue
   $('#feedbackPopup').on('click', '#close-feedback-modal', function (e) {
     e.preventDefault();
-    //empty the text in the popup
+
     $('.popup-inner')
       .find('.txt-center')
       .html('');
@@ -270,14 +253,11 @@ function doEverything(){
     moveOnOrNo(inputVals);
   });
 
-  //re-open the search-form when the search button is clicked
+  //re-open the search-form when the search button is clicked after a result has been retrieved from the API
   $('.searchAgain')
     .on('click', function(ev){
       ev.preventDefault();
-      //hide the full search form, show the mini click-to-search form
       $(".jq-form").show('fast');
-
-      //show the header-style form
       $('.mini-form').hide(100);
     });
 
