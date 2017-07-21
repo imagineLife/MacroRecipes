@@ -12,7 +12,7 @@ This answers questions like :<br /><br />
 
 **Motivation**<br />
 I wanted to help some health-concious friends.<br />
-I wanted to develop a mobile-first app to quickly get the job done.
+I wanted to develop a mobile-first app to quickly get the job done while someone is looking through their refrigerator without a clear plan of what food to prepare.
 
 ## API Reference
 This was built using [Spoonacular's API](https://market.mashape.com/spoonacular/recipe-food-nutrition).<br />
