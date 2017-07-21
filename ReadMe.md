@@ -13,7 +13,7 @@ This answers questions like :<br /><br />
 **Motivation**<br />
 I wanted to help some health-concious friends.<br />
 I wanted to develop a mobile-first app to quickly get the job done while someone is looking through their refrigerator without a clear plan of what food to prepare.<br />
-*NOTE:* Calories have been added as a quick-view nutritional element. Calories are of high importance, though not considered a 'macronutrient'.
+*NOTE:* Calories have been added as a quick-view nutritional element. Calories are of high value to the food-consious eater.
 
 ## API Reference
 This was built using [Spoonacular's API](https://market.mashape.com/spoonacular/recipe-food-nutrition).<br />
