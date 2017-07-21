@@ -7,7 +7,6 @@ function doEverything(){
   document.addEventListener("touchstart", function(){}, true);
 
   let randomIngredient = arrIngredients[Math.floor(Math.random()*arrIngredients.length)];
-  console.log(randomIngredient);
   $('#includeIngredients').attr("placeholder", randomIngredient);
 
   function displayAPISearchData(data){
@@ -108,6 +107,7 @@ function doEverything(){
       }
     };
 
+    // console.log(infoSettings);
     $.ajax(infoSettings);
   };
 
@@ -168,11 +168,11 @@ function doEverything(){
         sum += ( obj[el] );
       }
     }
-    if(sum > 0){
+    if(sum.length > 1){
       processForm();
       return sum;
     }else{
-      showForceEntryPopup();
+      // showForceEntryPopup();
     }
   };
 
@@ -181,8 +181,10 @@ function doEverything(){
     $('.jq-results')
       .html('');
 
+    let ingredientValue = $('.userInput').val();
+
     //loop through form inputs, check for input values
-    $(".jq-form input[type=number]").each(function() {
+    $(".jq-form input[type=number], .jq-form .userInput").each(function() {
 
       //if no macro value, skip the macro
       if( this.value == '') {
@@ -195,11 +197,11 @@ function doEverything(){
         if(this.name != 'includeIngredients'){
           //use associated min/max keyword
           let minMaxVal = $(this)
-          .siblings('.switch')
+          .parent()
+          .prev()
           .children('.slider')
           .children('.off')
           .html();
-
           objInputVal['minMax'] = minMaxVal.toLowerCase();
         }
         
@@ -210,7 +212,6 @@ function doEverything(){
       }
     });
 
-  console.log(arrInputVals);
 
   //get the results from the API
    getResFromAPI(arrInputVals, displayAPISearchData);
@@ -256,23 +257,13 @@ function doEverything(){
     var targetPopupClass = $(this).attr('data-popup-close');
     $('[data-popup="' + targetPopupClass + '"]').fadeOut(300);
   });
-
-
-  /*
-    change to  listen-to-submit event on FORM
-    prevent default as well
-
-    THIS NOTICES THE 'required' & validations!!
-      NICE :)
   
-  */
-  
-  $('.search').on('click', function(ev){
+  $('.jq-form').on('submit', function(ev){
     ev.preventDefault();
 
-    let inputList = $(".jq-form input[type=text]");
+    let inputList = $(".jq-form input[type=number]");
     let inputVals = {};
-    for (i = 1; i < inputList.length; i++){
+    for (i = 0; i < inputList.length; i++){
       inputVals[i] = inputList[i].value;
     };
 
@@ -319,7 +310,7 @@ function doEverything(){
   $('.jq-form')
   .children('#macroWrapper')
   .children('.switch')
-  .children('#togBtn')
+  .children(':checkbox')
   .on( 'change', function(){
     let theColor = $(this)
       .siblings('.slider')
