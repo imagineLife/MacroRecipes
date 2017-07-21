@@ -52,6 +52,13 @@
 }
 
 
+@media (min-width:370px){
+  form input{
+    width:100%;
+  }
+
+}
+
 @media (min-width:433px){
   form input{
     width:80%;
@@ -59,9 +66,8 @@
 }
 /* Non-mobile, grid */
 @media only screen and (min-width: 740px) {
-  .ingredientLabel{
+  .label{
     font-size: 20px;
-    display:block;
   }
   /* 3 columns, 3/12 in % */
   .col-3 {

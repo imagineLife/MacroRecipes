@@ -16,7 +16,7 @@ form h1{
 form input{
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   height:50px;
-  width:70%;
+  /*width:70%;*/
   font-size:18px;
   margin-bottom:20px;
 }
@@ -27,18 +27,26 @@ form input::placeholder{
   display:inline-block;
 }
 
+.ingredientLabel{
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
 .mini-form {
   display:none;
 }
 
-.ingredientLabel{
-  font-size: 15px;
-  display:block;
+.label{
+  font-size: 16px;
 }
 
 .macroLabel {
-    font-size: 20px;
-    margin-left:25px;
+    margin-left:15px;
+}
+
+.userInput {
+  width:100%;
 }
 
 body {
