@@ -6,8 +6,8 @@
 
 ## Summary
 This is for finding recipes based on macronutrient values (i.e protein, fat, and carbohydrates) and ingredients.
-This answers questions like :__
-*'How can I get 20 grams of protein with some chicken and tomatoes?'*__
+This answers questions like :<br />
+*'How can I get 20 grams of protein with some chicken and tomatoes?'*<br />
 *'What can I make with cumin, beef, and onions that is no more than 300 calories?'*
 
 ## Code Example
@@ -15,7 +15,8 @@ This answers questions like :__
 Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
 
 ## Motivation
-I wanted to help some health-concious friends.
+I wanted to help some health-concious friends.<br />
+I wanted to develop a mobile-first (almost mobile-only) app to quickly get the job done.
 
 ## API Reference
 This was build using [Spoonacular's API](https://market.mashape.com/spoonacular/recipe-food-nutrition).
