@@ -1,13 +1,22 @@
 const getRecipesURI = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/searchComplex?addrecipeinformation=true&number=30&offset=0&random=false&`
 const getSingleURI = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/`;
 let arrInputVals = [];
-let arrIngredients = ['chicken', 'onions', 'asparagus', 'potatoes', 'carrots', 'beef', 'tomatoes', 'apples', 'salmon'];
+let arrIngredients = ['chicken', 'onions', 'asparagus', 'ginger', 'lemon juice', 'potatoes', 'carrots', 'beef', 'tomatoes', 'apples', 'salmon', 'beets', 'parsley'];
 function doEverything(){
   //removes gray outline on touch devices
   document.addEventListener("touchstart", function(){}, true);
 
   let randomIngredient = arrIngredients[Math.floor(Math.random()*arrIngredients.length)];
-  $('#includeIngredients').attr("placeholder", randomIngredient);
+  let randomIngredient2 = arrIngredients[Math.floor(Math.random()*arrIngredients.length)];
+  let randomIngredient3 = arrIngredients[Math.floor(Math.random()*arrIngredients.length)];
+  let twoIngredients = "";
+  if(randomIngredient == randomIngredient2){
+    twoIngredients = randomIngredient+", "+randomIngredient3;
+  }else{
+    twoIngredients = randomIngredient+", "+randomIngredient2;
+  }
+  // console.log(randomIngredient+", "+randomIngredient2+", "+randomIngredient3);
+  $('#includeIngredients').attr("placeholder", twoIngredients);
 
   function displayAPISearchData(data){
       let recipesVar = data.results;
