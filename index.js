@@ -6,17 +6,25 @@ function doEverything(){
   //removes gray outline on touch devices
   document.addEventListener("touchstart", function(){}, true);
 
+  /*
+  building the ingredient placeholder text here
+  This text consists of 2 *random* ingredients from an array of ingredient options (array is above)
+  */
+
+  //pick 3 random ingredients
   let randomIngredient = arrIngredients[Math.floor(Math.random()*arrIngredients.length)];
   let randomIngredient2 = arrIngredients[Math.floor(Math.random()*arrIngredients.length)];
   let randomIngredient3 = arrIngredients[Math.floor(Math.random()*arrIngredients.length)];
   let twoIngredients = "";
+
+  //put 2 different ingredients into a string, then string into the html input placeholder
   if(randomIngredient == randomIngredient2){
     twoIngredients = randomIngredient+", "+randomIngredient3;
   }else{
     twoIngredients = randomIngredient+", "+randomIngredient2;
   }
-  // console.log(randomIngredient+", "+randomIngredient2+", "+randomIngredient3);
   $('#includeIngredients').attr("placeholder", twoIngredients);
+
 
   function displayAPISearchData(data){
       let recipesVar = data.results;
