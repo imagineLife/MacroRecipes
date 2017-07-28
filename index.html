@@ -7,7 +7,6 @@
  
   <link rel="stylesheet" type="text/css" href="index.css">
   <link rel="stylesheet" href="./float-grid.css" />
-  <link rel="stylesheet" type="text/css" href="tooltipster-master/dist/css/tooltipster.bundle.min.css" />
 </head>
 
 <body>
@@ -20,9 +19,14 @@
         </form>
 
         <form action="#" class="jq-form">
-          <label for="includeIngredients" class="ingredientLabel label">Ingredients
-            <input type="text" name="includeIngredients" class="userInput" id="includeIngredients" required>
-          </label>
+
+          <h1>Macro<small> - </small>Recipe Finder</h1>
+
+          <div class="desktopWrapper">
+            <label for="includeIngredients" class="ingredientLabel label">Ingredients
+              <input type="text" name="includeIngredients" class="userInput" id="includeIngredients" required>
+            </label>
+          </div>
 
           <div id="macroWrapper">
             <label class="switch" for="togBtnCals">
@@ -75,7 +79,10 @@
               <input type="number" step="1" min="0" max="500" name="Protein" placeholder="15" id="Protein">
             </label>
           </div>
-          <button class="search">Search</button>
+
+          <div class="desktopWrapper">
+            <button class="search">Search</button>
+          </div>
         </form>
         
       </div>
@@ -84,8 +91,34 @@
 
   <main role="main">
 
+    <div id ="startingPopup" class="popup startingPop" data-popup='popup-starting'>
+      <div class="pop-inner startPopInner">
+          
+          <h3 class='txt-center'>Macro-Recipe Finder</h3>
+
+          <p class='txt-center'>Try a new recipe with:</p>
+
+          <div class="suggestedSearchWrapper">
+            <img src="chkbx.png" class="chkBox">
+            <p>20g protien, min</p>
+          </div>
+
+          <div class="suggestedSearchWrapper">
+            <img src="chkbx.png" class="chkBox">
+            <p>180 calories, max</p>
+          </div>
+
+          <div class="suggestedSearchWrapper">
+            <img src="chkbx.png" class="chkBox">
+            <p>Chicken & tomatoes</p>
+          </div>          
+          
+          <a id='close-feedback-modal' class="popup-close" data-popup-close="popup-starting" href="#">X</a>
+      </div>
+    </div>
+
     <div id ="forceEntryPopup" class="popup forcePop" data-popup='popup-forceEntry'>
-      <div class="forcePop-inner">
+      <div class="pop-inner">
           <h2 class='txt-center'>Looks like you forgot to search for your macros!</h2>
           <a id='close-feedback-modal' class="popup-close" data-popup-close="popup-forceEntry" href="#">X</a>
       </div>
@@ -93,7 +126,7 @@
 
 
     <div id ="feedbackPopup" class="popup" data-popup="popup-feedback">
-      <div class="popup-inner">
+      <div class="pop-inner">
           <h2 class='txt-center'></h2>
           <ul>
           </ul>
@@ -111,8 +144,5 @@
     crossorigin="anonymous">
   </script>
   <script src="index.js"></script>
-  <script type="text/javascript" src="tooltipster-master/dist/js/tooltipster.bundle.min.js"></script>
-  
-
 </body>
 </html>

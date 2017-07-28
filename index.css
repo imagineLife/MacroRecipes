@@ -5,18 +5,22 @@ header {
   margin:0;
 }
 
-form{
-  padding:10px;
+h1{
+  text-align: center;
 }
 
-form h1{
-  display:inline-block;
+h3 {
+  font-size:25px;
+  margin-bottom: 50px;
+}
+
+form{
+  padding:10px;
 }
 
 form input{
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   height:50px;
-  /*width:70%;*/
   font-size:18px;
   margin-bottom:20px;
 }
@@ -42,17 +46,25 @@ form input::placeholder{
 }
 
 .macroLabel {
-    margin-left:15px;
+    margin-left:10px;
 }
 
 .userInput {
   width:100%;
 }
 
+.chkBox{
+  width:30px;
+  border-radius: 0px;
+}
+
+.suggestedSearchWrapper{
+  margin: 25px;
+}
+
 body {
   margin:0;
   font-family: "Roboto", sans-serif;
-  /*background: url('bkgrnd.jpg') no-repeat center center fixed;*/
   background: url('bkgrnd.jpg') center center fixed;
 }
 
@@ -107,7 +119,11 @@ a {
 
 p {
   padding:0;
-  margin:0;
+  margin-left:10px;
+  display:inline;
+  position: relative;
+  bottom: 7px;
+  font-size: 18px;
 }
 
 h3{
@@ -202,20 +218,7 @@ input:checked + .slider .off {
 }
 
 /* Inner */
-.popup-inner {
-    max-width:700px;
-    width:90%;
-    padding:30px;
-    position:absolute;
-    top:50%;
-    left:50%;
-    -webkit-transform:translate(-50%, -50%);
-    transform:translate(-50%, -50%);
-    border-radius:50px;
-    background:#fff;
-}
-
-.forcePop-inner {
+.pop-inner {
     max-width:700px;
     width:90%;
     padding:30px;
@@ -283,6 +286,14 @@ input:checked + .slider .off {
     text-align:center;
     line-height:100%;
     color:#fff;
+}
+
+.startingPop{
+  display: block;
+}
+
+.startPopInner{
+  width:320px;
 }
 
 .hideID{

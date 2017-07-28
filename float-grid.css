@@ -52,26 +52,46 @@
 }
 
 
-@media (min-width:370px){
-  form input{
-    width:100%;
-  }
-
-}
-
 @media (min-width:433px){
+
   form input{
     width:80%;
   }
+
 }
+
+@media (min-width:550px){
+
+  form {
+    width: 80%;
+    margin: 0 auto;
+    max-width: 600px;
+  }
+
+  .macroLabel {
+    margin-left:35px;
+  }
+
+  button {
+    width:485px;
+  }
+
+  .desktopWrapper {
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .ingredientLabel {
+    display: inline-block;
+    width: 485px;
+  }
+
+}
+
 /* Non-mobile, grid */
 @media only screen and (min-width: 740px) {
   .label{
     font-size: 20px;
-  }
-  /* 3 columns, 3/12 in % */
-  .col-3 {
-    width: 25%;
   }
 
   /* 4 columns */
@@ -79,14 +99,15 @@
     width: 33.33%;
   }
 
-  /* 6 columns */
-  .col-6 {
-    width: 50%;
-
+  button {
+    width:530px;
   }
 
-  /* 12 columns */
-  .col-12 {
+  .ingredientLabel{
+    width:530px;
+  }
 
+  .macroLabel {
+    margin-left:55px;
   }
 }
