@@ -2,7 +2,9 @@ const getRecipesURI = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.co
 const getSingleURI = `https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/`;
 let arrInputVals = [];
 let arrIngredients = ['chicken', 'onions', 'asparagus', 'ginger', 'lemon juice', 'potatoes', 'carrots', 'beef', 'tomatoes', 'apples', 'salmon', 'beets', 'parsley'];
+
 function doEverything(){
+  $('.search').attr('disabled', true);
   //removes gray outline on touch devices
   document.addEventListener("touchstart", function(){}, true);
 
@@ -23,6 +25,16 @@ function doEverything(){
   }else{
     twoIngredients = randomIngredient+", "+randomIngredient2;
   }
+
+  //Enable input when user fills out input
+  $('#includeIngredients').on('change input', function(ev){
+    if($(this).val()){
+      $('.search').removeAttr('disabled');
+    }else{
+      $('.search').attr('disabled', true);
+    }
+  });
+
   $('#includeIngredients').attr("placeholder", twoIngredients);
 
 

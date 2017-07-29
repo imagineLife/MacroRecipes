@@ -78,15 +78,20 @@ button{
   width:100%;
   font-size:18px;
   color: #fff;
-  background-color: #9F9B98;
+  background-color: #2ab934;
+  transition: background-color 340ms ease;
   text-shadow: -1px 1px #8B8885;
   border: none;
   margin: 0 0 15px 0;
   }
 
 button:hover {
-  background-color: #817D7B;
+  background-color: #219329; 
   text-shadow: -1px 1px #8B8885;
+}
+
+button[disabled]{
+  background-color: #9F9B98;
 }
 
 #macroWrapper {
