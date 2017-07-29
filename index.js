@@ -79,11 +79,13 @@ function doEverything(){
 
   //opening the macro-popup
   function showMacroPopup(recipeData) {
-    const feedback = $('.popup-inner');
+    console.log('trying to show macro-popup');
+    const feedback = $('.pop-inner');
     const  feedbackUL = feedback.find('ul');
     const feedbackButon = feedback.find('button');
     var thisPopOpenAttr = $('.testPop')
                               .attr('data-popup-open');
+    console.log(thisPopOpenAttr);
 
     //set the Macro text based on API results
     feedback.find('.txt-center').html(`${recipeData.title} <span>Macronutrients:</span>`);
@@ -267,11 +269,11 @@ function doEverything(){
   $('#feedbackPopup').on('click', '#close-feedback-modal', function (e) {
     e.preventDefault();
 
-    $('.popup-inner')
+    $('.pop-inner')
       .find('.txt-center')
       .html('');
 
-    $('.popup-inner')
+    $('.pop-inner')
       .find('ul')
       .html('');
 
