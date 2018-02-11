@@ -60,7 +60,7 @@ form input::placeholder{
 }
 
 .suggestedSearchWrapper{
-  margin: 25px;
+  margin: 20px auto;
 }
 
 body {
@@ -126,7 +126,7 @@ a {
 
 p {
   padding:0;
-  margin-left:10px;
+  line-height: 1.3;
   display:inline;
   position: relative;
   bottom: 7px;
