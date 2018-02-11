@@ -52,6 +52,25 @@
 }
 
 
+@media (min-width:330){
+  p {
+  padding:0;
+  line-height: 1.6;
+  display:inline;
+  position: relative;
+  bottom: 7px;
+  font-size: 18px;
+  }
+
+  #macroWrapper{
+    height:85px;
+  }
+
+  h1{
+    font-size: 2em;
+  }
+}
+
 @media (min-width:433px){
 
   form input{
