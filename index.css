@@ -8,6 +8,7 @@ header {
 h1{
   text-align: center;
   margin-top: 0;
+  font-size: 1em;
 }
 
 h3 {
@@ -97,7 +98,7 @@ button[disabled]{
 }
 
 #macroWrapper {
-  height:85px; 
+  height:70px; 
   padding:10px;
 }
 
@@ -126,11 +127,15 @@ a {
 
 p {
   padding:0;
-  line-height: 1.3;
+  line-height: 1;
   display:inline;
   position: relative;
   bottom: 7px;
   font-size: 18px;
+}
+
+p b{
+  text-transform: uppercase;
 }
 
 h3{
