@@ -5,6 +5,8 @@ let arrIngredients = ['chicken', 'onions', 'asparagus', 'ginger', 'lemon juice',
 
 function doEverything(){
   $('.search').attr('disabled', true);
+  $('.close').attr('disabled', true);
+
   //removes gray outline on touch devices
   document.addEventListener("touchstart", function(){}, true);
 
@@ -237,6 +239,16 @@ function doEverything(){
 
   };
 
+
+//close the popup on close-button selection
+  $('.close')
+    .on('click', function(ev){
+      console.log('clicked!');
+      ev.preventDefault();
+      $(".jq-form").hide(100);
+      $('.mini-form').show('fast');
+  });
+
   //moving visually from popup to the selected recipe webpage
   //on 'go to recipe' click
   $('#feedbackPopup')
@@ -298,9 +310,11 @@ function doEverything(){
   $('.searchAgain')
     .on('click', function(ev){
       ev.preventDefault();
+      $('.close').attr('disabled', false);
       $(".jq-form").show('fast');
       $('.mini-form').hide(100);
       $('header').css('background-color', 'rgba(255,255,255, 0.9)');
+      console.log('searching again');
     });
 
 
