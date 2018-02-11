@@ -51,6 +51,9 @@
   width: 100%;
 }
 
+h3{
+  margin: 10px 0;
+}
 
 @media (min-width:330px){
   p {
@@ -60,6 +63,10 @@
   position: relative;
   bottom: 7px;
   font-size: 18px;
+  }
+
+  .pop-inner{
+    padding: 30px;
   }
 
   #macroWrapper{
