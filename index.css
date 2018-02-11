@@ -236,6 +236,7 @@ input:checked + .slider .off {
     transform:translate(-50%, -50%);
     border-radius:50px;
     background:#fff;
+    text-align: center;
 }
 
 .popup-inner span {
@@ -259,6 +260,9 @@ input:checked + .slider .off {
 
 .popup ul {
   padding-left: 0px;
+  max-width: 250px;
+  text-align: center;
+  margin: 0 auto;
 }
 
 .popup ul li {
@@ -301,6 +305,7 @@ input:checked + .slider .off {
 
 .startPopInner{
   width:320px;
+  text-align: left;
 }
 
 .hideID{
