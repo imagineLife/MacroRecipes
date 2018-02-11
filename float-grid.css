@@ -86,6 +86,13 @@
     width: 485px;
   }
 
+  .mini-form{
+    text-align: center;
+  }
+
+  .mini-form button{
+    margin-bottom: 0;
+  }
 }
 
 /* Non-mobile, grid */
