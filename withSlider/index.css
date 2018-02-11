@@ -37,7 +37,7 @@ body {
   font-family: "Roboto", sans-serif;
   color: #252525;
   background: #8B4513; /* For browsers that do not support gradients */
-  background: radial-gradient(#D2691E, #8B4513); /* Standard syntax (must be last) */}
+  background: radial-gradient(#8B4513, #763A0F); /* Standard syntax (must be last) */}
 
 main {
   padding-top:80px;
