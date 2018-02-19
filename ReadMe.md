@@ -10,7 +10,7 @@ This is for finding recipes based on macronutrient values (i.e protein, fat, and
 This answers questions like :<br /><br />
 *'How can I get 20 grams of protein with some chicken and tomatoes?'*
 *'What can I make with cumin, beef, and onions that is no more than 300 calories?'*<br />
-This is using a mobile-first and large-screen-friendly design.<br /><br />
+This is using a mobile-first and large-screen-responsive design.<br /><br />
 
 **Motivation**<br />
 I wanted to help some health-concious friends.<br />
