@@ -1,4 +1,5 @@
 ## MacroFinder
+<a href="https://imaginelife.github.io/MacroRecipes/">MacroRecipes</a> is a responsive web app for finding recipes based on nutritional values and ingredients.
 ![Alt text](startingOut.jpg?raw=true "Starting Out")
 ![Alt text](uiInProcess.jpg?raw=true "Searching")
 ![Alt text](searchResults.jpg?raw=true "Search Results")
@@ -17,7 +18,7 @@ I wanted to develop a mobile-first app to quickly get the job done while someone
 
 ## API Reference
 This was built using [Spoonacular's API](https://market.mashape.com/spoonacular/recipe-food-nutrition).<br />
-Spoonacular has a robust food API, including recipe searching and nutrient searching, and much more.
+Spoonacular has a robust food API, including searching for recipes by ingredient and by nutrient maximum and/or minimum.
 
 ## Technology Used
 **HTML**<br />
